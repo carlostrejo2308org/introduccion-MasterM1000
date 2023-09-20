@@ -1,0 +1,129 @@
+package cps_s7_ago_dic_2023;
+import java.util.Scanner;
+public class Sistema_Alarmas {
+    static Scanner s = new Scanner(System.in);
+       static boolean Sen_Mov;
+       static int Sen_Temp;
+       static boolean Sen_Puer;
+    
+    public static void  Alarmas(boolean Sen_Mov, int Sen_Temp, boolean Sen_Puer){
+        
+        if (Sen_Mov==true){
+            System.out.println("No hay problema con el sensor de movimiento");
+        }else{
+            System.out.println("Hay problema con el sensor de movimiento");
+        }
+        
+        if (Sen_Temp >= 58) {
+            System.out.println("Hay problema con el sensor de temperatua");
+        }else{
+            System.out.println("No hay problema con el sensor de temperatua");
+        }
+        
+        if (Sen_Puer==true) {
+            System.out.println("No hay problema con el sensor de puertas");
+        }else{
+            System.out.println("Hay problema con el sensor de puertas");
+        }
+    }
+    
+            
+    
+    private static void Abierto(boolean Est){
+        Sen_Mov = true;
+        Sen_Temp = 0;
+        Sen_Puer =true;
+        
+        if (Est==true) {
+            Alarmas(Sen_Mov,Sen_Temp,Sen_Puer);
+        }
+}
+    
+    private static void Gente_Adentro(boolean Est){
+        int VSP;
+        Sen_Mov = true;
+        System.out.println("Regitre la temperatua: ");
+        Sen_Temp = s.nextInt();
+        do {            
+        System.out.println("La puerta esta abierta? ");
+        System.out.println("1.Si,2.No");
+        VSP= s.nextInt();
+        if (VSP==1) {
+           Sen_Puer = false; 
+           break;
+        } 
+        if(VSP==2){
+           Sen_Puer = true;
+           break;
+        }
+        
+        } while (true);
+        
+        if (Est==true) {
+            Alarmas(Sen_Mov,Sen_Temp,Sen_Puer);
+        }
+}
+    
+    private static void Vacaciones(boolean Est){
+        int VSM;
+        int VSP;
+        do {            
+        System.out.println("hay movimientp? ");
+        System.out.println("1.Si,2.No");
+        VSM= s.nextInt();
+        if (VSM==2) {
+           Sen_Mov = true; 
+           break;
+        } 
+        if(VSM==1){
+           Sen_Mov = false;
+           break;
+        }
+        
+        } while (true);
+        System.out.println("Regitre la temperatua: ");
+        Sen_Temp = s.nextInt();
+        do {            
+        System.out.println("La puerta esta abierta? ");
+        System.out.println("1.Si,2.No");
+        VSP= s.nextInt();
+        if (VSP==2) {
+           Sen_Puer = true; 
+           break;
+        } 
+        if(VSP==1){
+           Sen_Puer = false;
+           break;
+        }
+        
+        } while (true);
+        
+        if (Est==true) {
+            Alarmas(Sen_Mov,Sen_Temp,Sen_Puer);
+        }
+}
+
+    public static void main(String[] args) {
+        int SA;
+       do {            
+        System.out.println("Que sistema esta activo: ");
+        System.out.println("1.Abierto,2.Gente Adentro,3.Vacaciones");
+        SA=s.nextInt();
+           if (SA==1) {
+               Abierto(true);
+               System.exit(0);
+           }
+           if (SA==2) {
+               Gente_Adentro(true);
+               System.exit(0);
+           }
+           if (SA==3) {
+               Vacaciones(true);
+               System.exit(0);
+           }
+        
+        } while (true);
+        
+    }
+    
+}
